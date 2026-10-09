@@ -14,8 +14,10 @@
   var vinylDisc = null;
   var tonearm = null;
   var playBtn = null;
+  var promptBanner = null;
   var isPlaying = false;
   var unlocked = false;
+  var audioContext = null;
 
   function init() {
     audio = (typeof document !== 'undefined' && (document.getElementById('bg-music') || document.getElementById('bg-audio'))) || null;
@@ -24,16 +26,21 @@
     vinylDisc = (typeof document !== 'undefined' && (document.querySelector('.vinyl-disc') || document.querySelector('.vinyl-record'))) || null;
     tonearm = (typeof document !== 'undefined' && document.querySelector('.tonearm')) || null;
     playBtn = (typeof document !== 'undefined' && (document.getElementById('vinyl-play-toggle') || document.querySelector('.vinyl-toggle-btn'))) || null;
+    promptBanner = (typeof document !== 'undefined' && document.getElementById('audio-prompt-banner')) || null;
 
     if (!audio) return;
 
-    // Explicitly enforce loop property
+    // Enforce looping & preload buffer
     audio.loop = true;
+    try {
+      audio.load();
+    } catch (e) {}
 
-    // Listen to native audio element events
+    // Synchronize UI on native audio events
     audio.addEventListener('play', function () {
       isPlaying = true;
       syncUI(true);
+      hidePromptBanner();
     });
 
     audio.addEventListener('pause', function () {
@@ -41,7 +48,6 @@
       syncUI(false);
     });
 
-    // Seamless continuous looping restart fallback
     audio.addEventListener('ended', function () {
       if (audio) {
         audio.currentTime = 0;
@@ -62,15 +68,41 @@
 
     if (vinylContainer) {
       vinylContainer.addEventListener('click', function (e) {
-        // Toggle if clicking container unless clicked on specific sub-links
         if (e.target && e.target.tagName !== 'A') {
           toggle();
         }
       });
     }
 
-    // Try autoplay on open + fallback to first user gesture
-    setupAutoplayAndGestureFallback();
+    // Wire prompt banner click and touch
+    if (promptBanner) {
+      promptBanner.addEventListener('click', function (e) {
+        e.stopPropagation();
+        play();
+      });
+      promptBanner.addEventListener('touchend', function (e) {
+        e.stopPropagation();
+        play();
+      });
+    }
+
+    // Proactively attach gesture fallback for first interaction
+    attachGestureFallback();
+
+    // Attempt direct autoplay immediately on open
+    attemptAutoplay();
+  }
+
+  function hidePromptBanner() {
+    if (promptBanner) {
+      promptBanner.classList.add('hidden');
+    }
+  }
+
+  function showPromptBanner() {
+    if (promptBanner && !isPlaying) {
+      promptBanner.classList.remove('hidden');
+    }
   }
 
   function syncUI(playing) {
@@ -110,13 +142,18 @@
     }
   }
 
-  function removeGestureListeners() {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return;
-    var events = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'wheel'];
-    events.forEach(function (evt) {
-      if (window.removeEventListener) window.removeEventListener(evt, onFirstGesture, true);
-      if (document.removeEventListener) document.removeEventListener(evt, onFirstGesture, true);
-    });
+  function unlockAudioContext() {
+    try {
+      var AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) {
+        if (!audioContext) {
+          audioContext = new AudioCtx();
+        }
+        if (audioContext.state === 'suspended') {
+          audioContext.resume();
+        }
+      }
+    } catch (e) {}
   }
 
   function onFirstGesture() {
@@ -124,43 +161,57 @@
       removeGestureListeners();
       return;
     }
+
     var a = (controller && controller.audio) || audio;
     if (!a || typeof a.play !== 'function') return;
 
+    unlockAudioContext();
     a.loop = true;
+
     var p = a.play();
     if (p && typeof p.then === 'function') {
       p.then(function () {
         unlocked = true;
         isPlaying = true;
         syncUI(true);
+        hidePromptBanner();
         removeGestureListeners();
       }).catch(function () {
-        // Still blocked by browser policy, keep listeners active for next interaction
+        // Keep active for next valid touch/click
       });
     } else {
       unlocked = true;
+      isPlaying = true;
+      syncUI(true);
+      hidePromptBanner();
       removeGestureListeners();
     }
   }
 
-  function attachGestureFallback() {
+  function removeGestureListeners() {
     if (typeof window === 'undefined' || typeof document === 'undefined') return;
-    var events = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'wheel'];
+    var events = ['click', 'touchend', 'pointerup', 'keydown'];
     events.forEach(function (evt) {
-      if (window.addEventListener) window.addEventListener(evt, onFirstGesture, { capture: true, passive: true });
-      if (document.addEventListener) document.addEventListener(evt, onFirstGesture, { capture: true, passive: true });
+      if (window.removeEventListener) window.removeEventListener(evt, onFirstGesture, true);
+      if (document.removeEventListener) document.removeEventListener(evt, onFirstGesture, true);
     });
   }
 
-  function setupAutoplayAndGestureFallback() {
+  function attachGestureFallback() {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    // Strictly avoid 'scroll', 'wheel', or passive 'touchstart' which throw NotAllowedError on iOS WebKit!
+    var events = ['click', 'touchend', 'pointerup', 'keydown'];
+    events.forEach(function (evt) {
+      if (window.addEventListener) window.addEventListener(evt, onFirstGesture, true);
+      if (document.addEventListener) document.addEventListener(evt, onFirstGesture, true);
+    });
+  }
+
+  function attemptAutoplay() {
     var a = (controller && controller.audio) || audio;
     if (!a || typeof a.play !== 'function') return;
 
     a.loop = true;
-
-    // Attach fallback listeners immediately so any user gesture from millisecond 0 unlocks playback
-    attachGestureFallback();
 
     try {
       var p = a.play();
@@ -169,13 +220,17 @@
           unlocked = true;
           isPlaying = true;
           syncUI(true);
+          hidePromptBanner();
           removeGestureListeners();
         }).catch(function () {
-          // Autoplay blocked by browser policy; gesture fallback listeners remain active
+          // Autoplay blocked by browser policy; reveal prompt banner
+          showPromptBanner();
         });
+      } else {
+        hidePromptBanner();
       }
     } catch (e) {
-      // Synchronous failure; gesture fallback listeners remain active
+      showPromptBanner();
     }
   }
 
@@ -189,16 +244,27 @@
     }
     if (!a || typeof a.play !== 'function') return Promise.resolve();
 
+    unlockAudioContext();
     a.loop = true;
     unlocked = true;
     removeGestureListeners();
 
-    return a.play().then(function () {
+    var p = a.play();
+    if (p && typeof p.then === 'function') {
+      return p.then(function () {
+        isPlaying = true;
+        syncUI(true);
+        hidePromptBanner();
+      }).catch(function (err) {
+        console.warn('Audio playback error:', err);
+        showPromptBanner();
+      });
+    } else {
       isPlaying = true;
       syncUI(true);
-    }).catch(function (err) {
-      console.warn('Audio playback prevented or failed:', err);
-    });
+      hidePromptBanner();
+      return Promise.resolve();
+    }
   }
 
   function pause() {
