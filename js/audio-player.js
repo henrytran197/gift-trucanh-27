@@ -58,6 +58,12 @@
       }
     });
 
+    audio.addEventListener('canplay', function () {
+      if (!unlocked && !isPlaying) {
+        attemptAutoplay();
+      }
+    });
+
     // Wire player click toggle
     if (playBtn) {
       playBtn.addEventListener('click', function (e) {
