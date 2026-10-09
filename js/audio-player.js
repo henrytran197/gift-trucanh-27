@@ -3,6 +3,7 @@
  * Trúc Anh (Na) 27th Birthday Web Album
  * Manages playback of Elvis Presley - Can't Help Falling in Love
  * Synchronizes vinyl disc rotation, rose-gold tonearm, and equalizer bars.
+ * Supports autoplay on open, immediate fallback on first gesture, and seamless looping.
  */
 
 (function () {
@@ -14,16 +15,20 @@
   var tonearm = null;
   var playBtn = null;
   var isPlaying = false;
+  var unlocked = false;
 
   function init() {
-    audio = document.getElementById('bg-music') || document.getElementById('bg-audio');
+    audio = (typeof document !== 'undefined' && (document.getElementById('bg-music') || document.getElementById('bg-audio'))) || null;
     controller.audio = audio;
-    vinylContainer = document.getElementById('vinyl-player') || document.querySelector('.vinyl-player');
-    vinylDisc = document.querySelector('.vinyl-disc') || document.querySelector('.vinyl-record');
-    tonearm = document.querySelector('.tonearm');
-    playBtn = document.getElementById('vinyl-play-toggle') || document.querySelector('.vinyl-toggle-btn');
+    vinylContainer = (typeof document !== 'undefined' && (document.getElementById('vinyl-player') || document.querySelector('.vinyl-player'))) || null;
+    vinylDisc = (typeof document !== 'undefined' && (document.querySelector('.vinyl-disc') || document.querySelector('.vinyl-record'))) || null;
+    tonearm = (typeof document !== 'undefined' && document.querySelector('.tonearm')) || null;
+    playBtn = (typeof document !== 'undefined' && (document.getElementById('vinyl-play-toggle') || document.querySelector('.vinyl-toggle-btn'))) || null;
 
     if (!audio) return;
+
+    // Explicitly enforce loop property
+    audio.loop = true;
 
     // Listen to native audio element events
     audio.addEventListener('play', function () {
@@ -36,9 +41,15 @@
       syncUI(false);
     });
 
+    // Seamless continuous looping restart fallback
     audio.addEventListener('ended', function () {
-      isPlaying = false;
-      syncUI(false);
+      if (audio) {
+        audio.currentTime = 0;
+        var p = audio.play();
+        if (p && typeof p.catch === 'function') {
+          p.catch(function () {});
+        }
+      }
     });
 
     // Wire player click toggle
@@ -52,11 +63,14 @@
     if (vinylContainer) {
       vinylContainer.addEventListener('click', function (e) {
         // Toggle if clicking container unless clicked on specific sub-links
-        if (e.target.tagName !== 'A') {
+        if (e.target && e.target.tagName !== 'A') {
           toggle();
         }
       });
     }
+
+    // Try autoplay on open + fallback to first user gesture
+    setupAutoplayAndGestureFallback();
   }
 
   function syncUI(playing) {
@@ -96,15 +110,87 @@
     }
   }
 
+  function removeGestureListeners() {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    var events = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'wheel'];
+    events.forEach(function (evt) {
+      if (window.removeEventListener) window.removeEventListener(evt, onFirstGesture, true);
+      if (document.removeEventListener) document.removeEventListener(evt, onFirstGesture, true);
+    });
+  }
+
+  function onFirstGesture() {
+    if (unlocked) {
+      removeGestureListeners();
+      return;
+    }
+    var a = (controller && controller.audio) || audio;
+    if (!a || typeof a.play !== 'function') return;
+
+    a.loop = true;
+    var p = a.play();
+    if (p && typeof p.then === 'function') {
+      p.then(function () {
+        unlocked = true;
+        isPlaying = true;
+        syncUI(true);
+        removeGestureListeners();
+      }).catch(function () {
+        // Still blocked by browser policy, keep listeners active for next interaction
+      });
+    } else {
+      unlocked = true;
+      removeGestureListeners();
+    }
+  }
+
+  function attachGestureFallback() {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+    var events = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'wheel'];
+    events.forEach(function (evt) {
+      if (window.addEventListener) window.addEventListener(evt, onFirstGesture, { capture: true, passive: true });
+      if (document.addEventListener) document.addEventListener(evt, onFirstGesture, { capture: true, passive: true });
+    });
+  }
+
+  function setupAutoplayAndGestureFallback() {
+    var a = (controller && controller.audio) || audio;
+    if (!a || typeof a.play !== 'function') return;
+
+    a.loop = true;
+
+    try {
+      var p = a.play();
+      if (p && typeof p.then === 'function') {
+        p.then(function () {
+          unlocked = true;
+          isPlaying = true;
+          syncUI(true);
+        }).catch(function () {
+          // Autoplay blocked by browser policy -> listen for first interaction anywhere
+          attachGestureFallback();
+        });
+      } else {
+        attachGestureFallback();
+      }
+    } catch (e) {
+      attachGestureFallback();
+    }
+  }
+
   function play() {
     var a = (this && this.audio) || controller.audio || audio;
     if (!a) {
-      a = document.getElementById('bg-music') || document.getElementById('bg-audio');
+      a = (typeof document !== 'undefined' && (document.getElementById('bg-music') || document.getElementById('bg-audio'))) || null;
       if (this) this.audio = a;
       controller.audio = a;
       audio = a;
     }
     if (!a || typeof a.play !== 'function') return Promise.resolve();
+
+    a.loop = true;
+    unlocked = true;
+    removeGestureListeners();
 
     return a.play().then(function () {
       isPlaying = true;
@@ -125,7 +211,7 @@
   function toggle() {
     var a = (this && this.audio) || controller.audio || audio;
     if (!a) {
-      a = document.getElementById('bg-music') || document.getElementById('bg-audio');
+      a = (typeof document !== 'undefined' && (document.getElementById('bg-music') || document.getElementById('bg-audio'))) || null;
       if (this) this.audio = a;
       controller.audio = a;
       audio = a;
@@ -154,9 +240,11 @@
   window.audioController = controller;
 
   // Auto-init when DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
   }
 })();

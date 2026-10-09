@@ -10,20 +10,20 @@
 
   var chapterMeta = {
     2023: {
-      title: 'Chương I • 2023: Khởi Đầu Hành Trình & Những Kỷ Niệm Ngọt Ngào',
-      subtitle: '15 khoảnh khắc đầu tiên của những chuyến đi và nụ cười rạng rỡ bên nhau'
+      title: 'Chương I • 2023: Những Kỷ Niệm Đầu Tiên',
+      subtitle: '15 khoảnh khắc đầu tiên của những nụ cười rạng rỡ bên nhau'
     },
     2024: {
-      title: 'Chương II • 2024: Từng Bước Trưởng Thành & Những Cột Mốc Đáng Nhớ',
-      subtitle: '7 khoảnh khắc ghi dấu sự kiên cường và những trải nghiệm mới'
+      title: 'Chương II • 2024: Những Cột Mốc Đáng Nhớ',
+      subtitle: '7 khoảnh khắc ghi dấu những trải nghiệm mới cùng nhau'
     },
     2025: {
-      title: 'Chương III • 2025: Sóng Gió Vượt Qua, Bình Yên Ở Lại',
-      subtitle: '11 khoảnh khắc gắn kết sâu sắc, cùng nhau đi qua mọi thăng trầm'
+      title: 'Chương III • 2025: Những Ngày Tháng Bình Yên',
+      subtitle: '11 khoảnh khắc bên nhau nhẹ nhàng và gắn kết'
     },
     2026: {
-      title: 'Chương IV • 2026: Tuổi 27 Rạng Rỡ & Vững Chãi',
-      subtitle: '4 khoảnh khắc hiện tại đón chào tuổi mới kiêu hãnh và an nhiên'
+      title: 'Chương IV • 2026: Tuổi 27 Rạng Rỡ',
+      subtitle: '4 khoảnh khắc đón chào tuổi mới an yên và tươi tắn'
     }
   };
 
