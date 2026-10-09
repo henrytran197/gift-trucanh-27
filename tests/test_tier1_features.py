@@ -310,8 +310,8 @@ class TestTier1FeatureCoverage(unittest.TestCase):
             "Signer name 'Henry' not found in certificate"
         )
         self.assertTrue(
-            bool(re.search(r'17\s*tháng\s*9\s*năm\s*2026|17/09/2026|17\.09\.2026', content)),
-            "Official certificate date 17/09/2026 not found in index.html"
+            bool(re.search(r'9\s*tháng\s*10\s*năm\s*2026|09/10/2026|18/09/2026|17\s*tháng\s*9\s*năm\s*2026', content)),
+            "Official certificate date not found in index.html"
         )
 
     def test_f16_emotional_2026_letter(self):

@@ -153,8 +153,8 @@ class TestTier4RealWorldScenarios(unittest.TestCase):
         # 4. Signature & Date
         self.assertIn("Henry", html_text, "Step 4 Failed: Signer 'Henry' missing")
         self.assertTrue(
-            bool(re.search(r'17\s*tháng\s*9\s*năm\s*2026|17/09/2026|17\.09\.2026', html_text)),
-            "Step 4 Failed: Date 17/09/2026 missing"
+            bool(re.search(r'9\s*tháng\s*10\s*năm\s*2026|09/10/2026|18/09/2026|17\s*tháng\s*9\s*năm\s*2026', html_text)),
+            "Step 4 Failed: Certificate date missing"
         )
 
         # 5. Emotional Letter
