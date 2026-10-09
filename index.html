@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Chúc Mừng Sinh Nhật Trúc Anh (Na) • Level 27 Certificate & Memory Album</title>
+
+  <!-- Google Fonts Preconnect & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;700;800&family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/print.css" media="print">
+</head>
+<body>
+
+  <!-- Background Audio Player Element -->
+  <audio id="bg-music" src="./audio/music.mp3" preload="auto" loop>
+    Trình duyệt của bạn không hỗ trợ phát âm thanh trực tiếp.
+  </audio>
+
+  <!-- Canvas Particle & Fireworks Overlays -->
+  <canvas id="starfield"></canvas>
+  <canvas id="confetti"></canvas>
+  <canvas id="fireworks-canvas"></canvas>
+
+  <!-- =======================================================================
+       1. HERO SECTION & 3D GIFT BOX INTRO
+       ======================================================================= -->
+  <header id="hero" class="hero-section">
+    <div class="container hero-content">
+      <span class="hero-tagline">✨ Happy 27th Birthday Special Edition ✨</span>
+      <h1 class="hero-title">
+        Thương gửi <span class="highlight-name">Na</span>
+      </h1>
+      <p class="hero-desc">
+        Hành trình 5 năm rực rỡ từ tuổi 22 đến tuổi 27 • Bản nâng cấp Chứng nhận Trưởng thành Level 27 & Cuốn album kỷ niệm đong đầy yêu thương.
+      </p>
+
+      <!-- 3D Interactive Gift Box -->
+      <div class="gift-box-container">
+        <div id="gift-box" class="gift-box" role="button" aria-label="Mở hộp quà sinh nhật">
+          <div class="gift-lid"></div>
+          <div class="gift-body">
+            <div class="gift-ribbon-v"></div>
+            <div class="gift-ribbon-h"></div>
+            <div class="gift-bow"></div>
+          </div>
+        </div>
+        <p class="gift-hint">🎁 Chạm vào hộp quà để mở điều kỳ diệu nghen ✨</p>
+      </div>
+
+      <!-- CTA Button to Unlock Audio & Particle Burst -->
+      <button id="hero-cta-btn" class="hero-cta" aria-label="Khám phá món quà sinh nhật">
+        ✨ Khám Phá Món Quà Sinh Nhật ✨
+      </button>
+    </div>
+  </header>
+
+  <!-- =======================================================================
+       2. FLOATING VINYL RECORD PLAYER WIDGET
+       ======================================================================= -->
+  <aside id="vinyl-player" class="vinyl-player" role="region" aria-label="Trình phát nhạc đĩa than">
+    <div class="vinyl-disc-wrapper">
+      <div class="vinyl-disc">
+        <div class="vinyl-center-label">
+          <div class="vinyl-center-hole"></div>
+        </div>
+      </div>
+      <div class="tonearm"></div>
+    </div>
+    <div class="vinyl-info">
+      <span class="track-title">Can't Help Falling in Love</span>
+      <span class="track-artist">Elvis Presley</span>
+      <div class="equalizer">
+        <div class="equalizer-bar"></div>
+        <div class="equalizer-bar"></div>
+        <div class="equalizer-bar"></div>
+        <div class="equalizer-bar"></div>
+      </div>
+    </div>
+    <button id="vinyl-play-toggle" class="vinyl-toggle-btn" aria-label="Phát hoặc tạm dừng nhạc">
+      <span class="toggle-icon">▶</span>
+    </button>
+  </aside>
+
+  <!-- =======================================================================
+       3. 2021 FLASHBACK SECTION: NƠI HÀNH TRÌNH BẮT ĐẦU (LEVEL 22)
+       ======================================================================= -->
+  <section id="flashback-2021" class="flashback-section">
+    <div class="container">
+      <div class="flashback-grid">
+        <!-- Archival Image Preview -->
+        <div class="flashback-card-archival">
+          <div class="archival-badge">Hồ Sơ Lưu Trữ • Ngày 17.09.2021 — Sài Gòn</div>
+          <img src="./images/certificate_2021.png" alt="Giấy chứng nhận trưởng thành tuổi 22 của Trúc Anh (2021)" class="archival-image">
+        </div>
+
+        <!-- Archival Excerpt & Promise Quote -->
+        <div class="flashback-content">
+          <span class="section-badge">Hồi Ức 2021 • Cột Mốc Tuổi 22</span>
+          <h2 class="section-title" style="text-align: left;">Nơi Hành Trình Bắt Đầu</h2>
+          <p class="flashback-narrative">
+            Năm 22 tuổi, giữa những ngày Sài Gòn lặng gió vì giãn cách, một tấm giấy chứng nhận giản dị nhưng chan chứa yêu thương đã được gửi đi. 5 năm sau, hạt mầm năm ấy đã nở thành một đóa hoa hồng rực rỡ, kiên cường và ngập tràn hạnh phúc...
+          </p>
+
+          <blockquote class="flashback-quote">
+            "Còn về điều mà em nợ anh, anh muốn em... từ nay về sau hãy sống một cuộc sống thật ý nghĩa và yêu thương bản thân mình thật nhiều.."
+            <cite class="flashback-quote-author">— Henry, Sài Gòn, 17.09.2021 (Tuổi 22)</cite>
+          </blockquote>
+
+          <button id="open-letter-2021-btn" class="btn-open-letter" aria-label="Đọc lại toàn văn bức thư năm 22 tuổi">
+            Đọc lại bức thư năm 22 tuổi 📜
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       4. CHRONOLOGICAL TIMELINE: 4 CHAPTERS (2023 - 2026)
+       ======================================================================= -->
+  <main id="timeline" class="timeline-section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 48px;">
+        <span class="section-badge">Dòng Thời Gian Kỷ Niệm (2023 – 2026)</span>
+        <h2 class="section-title">Hành Trình 37 Khoảnh Khắc Của Na</h2>
+        <p class="section-subtitle">
+          Mỗi bức ảnh là một trang nhật ký chân thật, ghi dấu từng nụ cười, từng chuyến đi và từng bước trưởng thành của em qua các năm 2023, 2024, 2025 và 2026.
+        </p>
+      </div>
+
+      <!-- Container dynamically filled from window.GALLERY_DATA -->
+      <div id="timeline-chapters"></div>
+    </div>
+  </main>
+
+  <!-- =======================================================================
+       5. LUXURY CERTIFICATE OF MATURITY — LEVEL 27
+       ======================================================================= -->
+  <section id="certificate-level-27" class="certificate-section">
+    <div class="container">
+      <div class="certificate-card">
+        <div class="cert-inner-border">
+          <div class="cert-order-badge">THE SUPREME ORDER OF MATURITY & HAPPINESS • BẢN CHỨNG NHẬN TRƯỞNG THÀNH TỐI CAO</div>
+          <h2 class="cert-main-title">CERTIFICATE OF MATURITY</h2>
+          <div class="cert-edition">LEVEL 27 — OFFICIAL EDITION • 2026</div>
+
+          <p class="cert-recipient-label">Được long trọng trao tặng cho / Proudly presented to:</p>
+          <h3 class="cert-recipient-name">TRÚC ANH (NA)</h3>
+
+          <p class="cert-citation">
+            Giấy chứng nhận này là minh chứng danh giá xác nhận <strong>Trúc Anh (Na)</strong> đã xuất sắc hoàn thành chặng đường 5 năm trưởng thành (2021 – 2026). Trải qua bao nỗ lực không ngừng nghỉ, em đã nâng cấp thành công lên <strong>LEVEL 27</strong> với trọn vẹn các chỉ số tối thượng:
+          </p>
+
+          <div class="cert-attributes-grid">
+            <div class="cert-attr-item">✨ <strong>Nhan sắc:</strong> Rạng rỡ, yêu kiều và luôn tỏa sáng</div>
+            <div class="cert-attr-item">🧠 <strong>Trí tuệ:</strong> Sáng suốt, thấu đáo trước mọi quyết định</div>
+            <div class="cert-attr-item">🛡️ <strong>Bản lĩnh:</strong> Kiên cường, an nhiên giữa mọi phong ba bão táp</div>
+            <div class="cert-attr-item">💖 <strong>Trái tim:</strong> Tràn ngập yêu thương, biết trân quý bản thân</div>
+          </div>
+
+          <p class="cert-conclusion">
+            Trúc Anh (Na) chính thức đủ điều kiện tuyệt đối để bước sang tuổi 27 ngập tràn hạnh phúc viên mãn, may mắn vô tận và chạm tới mọi ước mơ trong cuộc đời!
+          </p>
+
+          <!-- Authentication Row: 3D Wax Seal & Digital Signature -->
+          <div class="cert-auth-row">
+            <!-- 3D Wax Seal -->
+            <div class="wax-seal-wrapper">
+              <div id="wax-seal" class="wax-seal">
+                <span class="wax-seal-crown">👑</span>
+                <span class="wax-seal-number">27</span>
+                <span class="wax-seal-text">27th Birthday Official Seal</span>
+              </div>
+              <div class="wax-ribbon-tails">
+                <div class="wax-ribbon-left"></div>
+                <div class="wax-ribbon-right"></div>
+              </div>
+            </div>
+
+            <!-- Digital Signature Block -->
+            <div class="cert-signature-block">
+              <div class="cert-date">Sài Gòn, Ngày 17 tháng 9 năm 2026</div>
+              <div class="cert-signer-title">Người trao tặng & Đồng hành trọn đời:</div>
+              <div class="digital-signature">Henry</div>
+              <div class="cert-signer-name">Henry Tran</div>
+            </div>
+          </div>
+
+          <div class="cert-registry-number">
+            MÃ SỐ ĐỊNH DANH: REG-NA-1709-1999-2026-LV27 | TRẠNG THÁI: VĨNH CỬU CÓ HIỆU LỰC
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================================================================
+           6. EMOTIONAL 2026 LETTER FROM HENRY
+           =================================================================== -->
+      <article id="letter-2026" class="letter-section letter-card">
+        <h3 class="letter-title">Bức Thư Tuổi 27 Gửi Na</h3>
+        <p class="letter-salutation">Thương gửi Na,</p>
+        <div class="letter-body">
+          <p>
+            Hôm nay là ngày 17 tháng 9 năm 2026.
+          </p>
+          <p>
+            Đúng 5 năm trước, vào một buổi chiều tháng 9 năm 2021 giữa những ngày Sài Gòn giãn cách, anh đã ngồi loay hoay viết cho em những dòng chúc mừng đầu tiên khi em chuẩn bị bước sang tuổi 22. Lúc đó, anh mong em sẽ kiên cường trên con đường em chọn, sáng suốt trước hàng đống lựa chọn, mạnh mẽ trước những tổn thương trong quá khứ, và bình yên đủ để giữ tâm hồn tĩnh lặng mặc cho ngoài kia có bão tố đến thế nào. Và anh đã dặn: món nợ duy nhất em nợ anh là từ nay về sau hãy sống một cuộc sống thật ý nghĩa và yêu thương bản thân mình thật nhiều.
+          </p>
+          <p>
+            5 năm trôi qua nhanh như một cái chớp mắt...
+          </p>
+          <p>
+            Nhìn lại chặng đường từ tuổi 22 đến tuổi 27 của em hôm nay, anh thấy mình may mắn khi được chứng kiến từng bước chân em đi qua. Từ những ngày làm việc muộn mệt mỏi, những chuyến đi xa cùng nhau, những khoảnh khắc đời thường giản dị cho đến những dấu mốc đáng nhớ — em đã làm được tất cả những điều anh từng mong ước, và làm tốt hơn thế rất nhiều. Em của tuổi 27 hôm nay không chỉ tự tin, bản lĩnh và tỏa sáng rực rỡ, mà ánh mắt em vẫn vẹn nguyên sự ấm áp, nụ cười em vẫn trong trẻo như thuở ban đầu. Món nợ 5 năm trước, em đã trả trọn vẹn bằng chính một Trúc Anh kiêu hãnh và hạnh phúc của ngày hôm nay.
+          </p>
+          <p>
+            Bước sang tuổi 27 — Cấp độ 27 của cuộc đời: Anh muốn nhắn nhủ với em rằng, em không cần phải luôn gồng mình mạnh mẽ hay tự gánh vác mọi âu lo một mình nữa. Con đường phía trước có thể còn nhiều điều mới mẻ, nhưng em hãy luôn nhớ: phía sau em luôn có một bờ vai vững chãi, luôn có anh ở đây để lắng nghe, đồng hành và bảo bọc em qua mọi thăng trầm. Hãy cứ tự tin sải bước, cứ rực rỡ và tận hưởng trọn vẹn từng ngày tháng thanh xuân tuyệt đẹp này.
+          </p>
+          <p>
+            Chúc mừng sinh nhật lần thứ 27, Trúc Anh của anh! Mong tuổi mới mang đến cho em vạn điều như ý, nụ cười luôn nở trên môi và trái tim luôn ngập tràn an yên.
+          </p>
+        </div>
+        <div class="letter-signoff">
+          <div class="cert-date">Sài Gòn, Ngày 17 tháng 9 năm 2026</div>
+          <div class="letter-signature">Henry</div>
+        </div>
+      </article>
+
+      <!-- Action Buttons: Print & Fireworks -->
+      <div class="btn-group">
+        <button id="print-btn" class="btn-luxury btn-print" onclick="window.printCertificate()" aria-label="In hoặc xuất file PDF giấy chứng nhận">
+          Lưu Kỷ Niệm (In / Xuất PDF) 🖨️
+        </button>
+        <button id="fireworks-trigger-btn" class="btn-luxury btn-fireworks" aria-label="Bắn pháo hoa chúc mừng sinh nhật">
+          Bắn Pháo Hoa Chúc Mừng 🎆
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =======================================================================
+       7. FULL-SCREEN HD LIGHTBOX MODAL
+       ======================================================================= -->
+  <div id="lightbox" class="lightbox-modal" role="dialog" aria-hidden="true" aria-label="Trình xem ảnh HD">
+    <button id="lightbox-close-btn" class="lightbox-close" aria-label="Đóng trình xem ảnh">×</button>
+    <button id="lightbox-prev-btn" class="lightbox-prev" aria-label="Xem ảnh trước">‹</button>
+    <button id="lightbox-next-btn" class="lightbox-next" aria-label="Xem ảnh kế tiếp">›</button>
+    <div class="lightbox-container">
+      <img id="lightbox-img" class="lightbox-image" src="" alt="Ảnh kỷ niệm Trúc Anh">
+      <div class="lightbox-info">
+        <p id="lightbox-caption" class="lightbox-caption"></p>
+        <div class="lightbox-meta">
+          <span id="lightbox-date" class="lightbox-date"></span>
+          <span id="lightbox-counter" class="lightbox-counter">1 / 37</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       8. MODAL VIEWER: VERBATIM 2021 LETTER
+       ======================================================================= -->
+  <div id="letter-2021-modal" class="modal-overlay" role="dialog" aria-hidden="true" aria-label="Bức thư tuổi 22 (2021)">
+    <div class="modal-card">
+      <button id="close-letter-2021-btn" class="modal-close" aria-label="Đóng thư">✕</button>
+      <h3 class="letter-title" style="margin-top: 10px;">Thư Chúc Mừng Sinh Nhật Tuổi 22</h3>
+      <p class="letter-salutation">Thân gửi em,</p>
+      <div class="letter-body">
+        <p>
+          Hiện tại cũng sắp 6h chiều rồi và anh đang ngồi loay hoay mấy dòng này để gửi cho em vào nửa đêm nay khi mà em cũng bước sang tuổi 22. Anh tin anh không phải là người chúc em sớm nhất nhưng cũng không phải là người trễ nhất, anh chỉ mong những gì anh làm sẽ cho em thêm động lực để làm xong công việc rồi còn đi ngủ.
+        </p>
+        <p>
+          Bước sang tuổi mới mong em vẫn luôn kiên cường trên con đường mà em chọn, sáng suốt trong hàng đống những lựa chọn mà em phải quyết định, mạnh mẽ trước những thứ đã từng làm em tổn thương em trong quá khứ, tỏa sáng để dẫn lối cho chính bản thân em và cho những người cũng đang lạc lối, khỏe mạnh để có thể hoàn thành sứ mệnh khi em tới với cuộc đời này, khôn ngoan để biết đâu mới là thứ em nên nghe theo, đường em nên đi, thứ em nên chọn và người em tin tưởng và bình yên đủ để giữ tâm hồn em luôn tĩnh lặng mặc cho ngoài kia có sóng gió và bão tố đến thế nào.
+        </p>
+        <p style="font-weight: 600; color: #8C4E58;">
+          Còn về điều mà em nợ anh, anh muốn em…………………………………………………………….từ nay về sau hãy sống một cuộc sống thật ý nghĩa và yêu thương bản thân mình thật nhiều..
+        </p>
+      </div>
+      <div class="letter-signoff">
+        <div class="cert-date">Sài Gòn, Ngày 17 tháng 9 năm 2021</div>
+        <div class="letter-signature">Henry</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       JAVASCRIPT MODULES & DATA ASSETS
+       ======================================================================= -->
+  <script src="./js/gallery-data.js"></script>
+  <script src="./js/particles.js"></script>
+  <script src="./js/audio-player.js"></script>
+  <script src="./js/lightbox.js"></script>
+  <script src="./js/fireworks.js"></script>
+  <script src="./js/app.js"></script>
+
+</body>
+</html>

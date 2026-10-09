@@ -1,0 +1,132 @@
+/* ==========================================================================
+   PRINT.CSS — Dedicated Print Stylesheet for Certificate Level 27
+   Trúc Anh (Na) 27th Birthday Web Album & Certificate Level 27
+   Isolates Certificate for A4 landscape PDF and paper printing.
+   ========================================================================== */
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  /* Reset body and page chrome */
+  html, body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100% !important;
+  }
+
+  /* Hide interactive web chrome: Hero, Vinyl Player, Timeline, Lightbox, Buttons */
+  #hero,
+  .hero-section,
+  #vinyl-player,
+  .vinyl-player,
+  #flashback-2021,
+  .flashback-section,
+  #timeline,
+  .timeline-section,
+  #lightbox,
+  .lightbox-modal,
+  .btn-group,
+  .btn-luxury,
+  .btn-print,
+  .btn-fireworks,
+  button,
+  #confetti-canvas,
+  #confetti,
+  #fireworks-canvas,
+  #fireworks,
+  .modal-overlay,
+  .letter-section {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Isolate and format Certificate Level 27 */
+  #certificate-level-27,
+  .certificate-section {
+    display: block !important;
+    visibility: visible !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .certificate-card {
+    box-shadow: none !important;
+    border: 8px double #B76E79 !important;
+    border-radius: 8px !important;
+    background: #FFFDF9 !important;
+    padding: 20px 24px !important;
+    margin: -10px auto 0 !important;
+    max-width: 1000px !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    transform: scale(0.88);
+    transform-origin: top center;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .cert-inner-border {
+    border: 1px solid #B76E79 !important;
+    padding: 12px 16px !important;
+  }
+
+  .cert-main-title {
+    font-size: 1.8rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .cert-edition {
+    margin-bottom: 8px !important;
+  }
+
+  .cert-recipient-name {
+    font-size: 1.8rem !important;
+    margin-bottom: 8px !important;
+    color: #8C4E58 !important;
+    -webkit-text-fill-color: #8C4E58 !important;
+  }
+
+  .cert-citation {
+    margin: 6px auto !important;
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .cert-attributes-grid {
+    margin: 8px auto !important;
+    gap: 6px !important;
+  }
+
+  .cert-attr-item {
+    padding: 4px 8px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .cert-conclusion {
+    margin-bottom: 10px !important;
+    font-size: 0.82rem !important;
+  }
+
+  .cert-registry-number {
+    margin-top: 6px !important;
+    font-size: 0.68rem !important;
+  }
+
+  .wax-seal {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+  }
+}

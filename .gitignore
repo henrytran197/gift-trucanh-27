@@ -1,0 +1,7 @@
+# Test screenshots and logs
+/*.png
+!images/certificate_2021.png
+*.log
+.DS_Store
+tests/__pycache__/
+.agents/

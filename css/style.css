@@ -1,0 +1,254 @@
+/* ==========================================================================
+   STYLE.CSS — Global Tokens, Typography, Reset, & Base Styles
+   Trúc Anh (Na) 27th Birthday Web Album & Certificate Level 27
+   Theme: Midnight Starlight & Rose Gold (Nền đêm sao lấp lánh & Vàng hồng sang trọng)
+   ========================================================================== */
+
+:root {
+  /* Midnight Starlight Color Palette */
+  --midnight-darkest: #0B0813;
+  --midnight-deep: #130E1F;
+  --midnight-card: rgba(23, 17, 34, 0.85);
+  --midnight-card-border: rgba(224, 168, 153, 0.28);
+  --midnight-glow: rgba(183, 110, 121, 0.25);
+
+  /* Rose Gold & Champagne Accent Colors */
+  --rose-gold-primary: #B76E79;
+  --rose-gold-light: #F5D6CE;
+  --rose-gold-dark: #8C4E58;
+  --rose-gold-accent: #E0A899;
+  --rose-gold-soft: #FFD1DC;
+
+  --champagne-gold: #D4AF37;
+  --champagne-light: #F9F3EA;
+  --champagne-glow: #F3E5AB;
+  --parchment-white: #FFFDF9;
+
+  /* Typography Colors for Midnight Theme */
+  --text-main: #FAF5F0;
+  --text-secondary: #D4C5C0;
+  --text-muted: #A8959A;
+  --espresso-dark: #2C2225;
+  --espresso-muted: #5A4A4F;
+
+  /* 3D Wax Seal Ruby Red */
+  --ruby-wax-start: #D6336C;
+  --ruby-wax-mid: #9B111E;
+  --ruby-wax-dark: #5C0612;
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-display: 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-handwriting: 'Caveat', 'Dancing Script', cursive;
+  --font-script: 'Dancing Script', 'Great Vibes', cursive;
+
+  /* Transitions & Shadows */
+  --transition-smooth: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --shadow-subtle: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-luxury: 0 16px 45px rgba(183, 110, 121, 0.3);
+
+  /* iOS Safe Area Insets */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* Global Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--midnight-darkest);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(55, 30, 70, 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse at 15% 35%, rgba(183, 110, 121, 0.16) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 65%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+    linear-gradient(180deg, #0B0813 0%, #120D1E 40%, #0D0917 80%, #06040A 100%);
+}
+
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: var(--text-main);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--rose-gold-accent);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 32px);
+}
+
+/* Canvas Overlays */
+#starfield,
+#confetti-canvas,
+#confetti,
+#fireworks-canvas,
+#fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
+#starfield {
+  z-index: 1;
+}
+
+#confetti-canvas,
+#confetti {
+  z-index: 998;
+}
+
+#fireworks-canvas,
+#fireworks {
+  z-index: 1000;
+}
+
+/* Section Common Styling */
+.section-badge {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--rose-gold-light);
+  padding: 6px 18px;
+  background: rgba(183, 110, 121, 0.18);
+  border: 1px solid rgba(224, 168, 153, 0.4);
+  border-radius: 20px;
+  margin-bottom: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  color: #FFFFFF;
+  margin-bottom: 12px;
+  text-align: center;
+  text-shadow: 0 2px 14px rgba(224, 168, 153, 0.35);
+}
+
+.section-subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto clamp(24px, 4vw, 40px);
+  text-align: center;
+}
+
+/* Animations */
+@keyframes vinylSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(224, 168, 153, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.7);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
