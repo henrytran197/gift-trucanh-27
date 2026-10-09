@@ -159,6 +159,9 @@
 
     a.loop = true;
 
+    // Attach fallback listeners immediately so any user gesture from millisecond 0 unlocks playback
+    attachGestureFallback();
+
     try {
       var p = a.play();
       if (p && typeof p.then === 'function') {
@@ -166,15 +169,13 @@
           unlocked = true;
           isPlaying = true;
           syncUI(true);
+          removeGestureListeners();
         }).catch(function () {
-          // Autoplay blocked by browser policy -> listen for first interaction anywhere
-          attachGestureFallback();
+          // Autoplay blocked by browser policy; gesture fallback listeners remain active
         });
-      } else {
-        attachGestureFallback();
       }
     } catch (e) {
-      attachGestureFallback();
+      // Synchronous failure; gesture fallback listeners remain active
     }
   }
 
@@ -206,6 +207,8 @@
     a.pause();
     isPlaying = false;
     syncUI(false);
+    unlocked = true;
+    removeGestureListeners();
   }
 
   function toggle() {
